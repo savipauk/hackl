@@ -14,9 +14,9 @@ export default function Header({ onMenuToggle, isSidebarOpen }: HeaderProps) {
           alt="Menu"
         />
       </button>
-      <div>
+      <a href="https://www.zagreb.hr/">
         <img src="/zagreb.svg" alt="Zagreb" />
-      </div>
+      </a>
       <div className="w-[80%]">
         <h1>Sport na volej!</h1>
       </div>
