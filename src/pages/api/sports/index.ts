@@ -1,22 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { base } from '@/lib/airtable';
-// Import Airtable's types if available and needed for more complex scenarios
-import type { FieldSet, Record as AirtableRecord } from 'airtable'; // Import AirtableRecord
-
-// Define the structure of the data you want to *return* from the API
-type SportOutput = {
-  id: string;
-  sportName: string;
-  description: string;
-  createdAt: string; // Corresponds to Airtable's createdTime
-};
+import type { FieldSet, Record as AirtableRecord } from 'airtable';
+import { SportOutput } from '@/lib/types';
 
 // Define a minimal interface representing the expected Airtable record structure
 // including createdTime, which might not be explicitly in AirtableRecord<FieldSet> type
 interface AirtableRecordWithTime<TFields extends FieldSet> extends AirtableRecord<TFields> {
   createdTime: string;
 }
-
 
 export default async function handler(
   req: NextApiRequest,
@@ -30,11 +21,11 @@ export default async function handler(
       const records: ReadonlyArray<AirtableRecord<FieldSet>> = await base('Sport')
         .select({
           // Specify the fields you need from Airtable
-          fields: ['Sport Name', 'Description'],
+          fields: ['Sport Name'],
           // Specify sorting
           sort: [{ field: 'Sport Name', direction: 'asc' }],
         })
-        .all(); // This returns ReadonlyArray<AirtableRecord<FieldSet>>
+        .all(); // This returns ReadonlyArray<AirtableRecord<FieldSet>> 
 
       // Map the raw Airtable records to your desired output structure (SportOutput)
       const sports: SportOutput[] = records.map((record) => {
@@ -42,18 +33,12 @@ export default async function handler(
         // We know from Airtable's API that .all() includes createdTime
         const recordWithTime = record as AirtableRecordWithTime<FieldSet>;
 
-        // 'recordWithTime' now has the structure we expect:
-        // recordWithTime.id: string
-        // recordWithTime.createdTime: string
-        // recordWithTime.fields: { 'Sport Name'?: any, 'Description'?: any, ... }
-
         return {
           id: recordWithTime.id,
-          // Access fields safely, providing default empty strings if undefined/null
+
           sportName: String(recordWithTime.fields['Sport Name'] || ''),
-          description: String(recordWithTime.fields.Description || ''),
-          // Map Airtable's createdTime to your createdAt field
-          createdAt: recordWithTime.createdTime, // Now TS knows createdTime exists
+
+          createdAt: recordWithTime.createdTime,
         };
       });
 
