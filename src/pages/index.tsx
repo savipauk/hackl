@@ -5,6 +5,7 @@ import "@/styles/globals.css"; // Assuming you have global styles
 import SidebarItem from "@/components/sidebarItem";
 import Sidebar from "@/components/sidebar";
 import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 // Define the type for a Sport based on the API response
 // Matches the SportOutput type from the API route
@@ -44,7 +45,9 @@ export default function Home({ initialSports, error }: HomeProps) {
       <div className="flex h-[75vh]">
         <Sidebar isOpen={isSidebarOpen} />
       </div>
-      <div className="flex h-[10vh]">{/* footer */}</div>
+      <div className="flex h-[10vh]">
+        <Footer />
+      </div>
     </div>
   );
 }
