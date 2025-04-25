@@ -10,3 +10,7 @@ export type AirtableRecord<T = any> = {
   fields: T
   createdTime: string
 }
+
+export const sanitizeFormulaValue = (value: string) => {
+  return value.replace(/[\\'"]/g, '');
+};
