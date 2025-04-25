@@ -1,0 +1,34 @@
+.header {
+  display: flex;
+  align-items: center;
+  background: var(--primary);
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-image: "url('/hamburger.svg')";
+}
+
+img {
+  max-height: 90px;
+}
+
+h1 {
+  font-size: 35px;
+  color: var(--foreground);
+  font-weight: bold;
+  margin-left: 80px;
+  text-align: start;
+}
+
+#profile {
+  height: 50px;
+  display: block;
+}

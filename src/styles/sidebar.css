@@ -4,4 +4,11 @@
   width: 250px;
   background: var(--primary);
   padding: 20px;
+  transition: width 300ms ease-in-out;
+  overflow: hidden;
+}
+
+.sidebar.w-0 {
+  width: 0; /* Collapse the sidebar */
+  padding: 0; /* Remove padding when collapsed */
 }

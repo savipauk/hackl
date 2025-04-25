@@ -3,7 +3,11 @@ import SidebarItem from "./sidebarItem";
 import { useEffect, useState } from "react";
 import "@/styles/sidebar.css";
 
-export default function Sidebar() {
+interface SidebarProps {
+  isOpen: boolean;
+}
+
+export default function Sidebar({ isOpen }: SidebarProps) {
   const [sports, setSports] = useState<SportOutput[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -30,18 +34,12 @@ export default function Sidebar() {
     fetchSports();
   }, []);
 
-  if (loading) {
-    return <div>Loading sports...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
   return (
-    <div className="sidebar">
+    <div className="sidebar" style={{ display: isOpen ? "flex" : "none" }}>
       {sports.map((sport) => (
-        <SidebarItem key={sport.id} title={sport.sportName} />
+        <div>
+          <SidebarItem key={sport.id} title={sport.sportName} />
+        </div>
       ))}
     </div>
   );

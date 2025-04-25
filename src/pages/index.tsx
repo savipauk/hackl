@@ -4,6 +4,7 @@ import type { FormEvent } from "react"; // Import FormEvent type
 import "@/styles/globals.css"; // Assuming you have global styles
 import SidebarItem from "@/components/sidebarItem";
 import Sidebar from "@/components/sidebar";
+import Header from "@/components/header";
 
 // Define the type for a Sport based on the API response
 // Matches the SportOutput type from the API route
@@ -27,42 +28,23 @@ export default function Home({ initialSports, error }: HomeProps) {
   // const [isLoading, setIsLoading] = useState(false);
   // // State to manage feedback messages
   // const [message, setMessage] = useState<string | null>(error || null); // Display initial error if any
-  const [sidebarVisible, setSidebarVisible] = useState(true);
+
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
     <div className="container mx-auto p-6 bg-gray-50 min-h-screen">
-      <div className="flex h-[10vh]">{/* header */}</div>
-      <div className="flex h-[80vh]">
-        {sidebarVisible ? <Sidebar /> : <div>nosidebar</div>}
-        {/* content */}
+      <div className="flex h-[15vh]">
+        <Header
+          onMenuToggle={() => {
+            setIsSidebarOpen(!isSidebarOpen);
+          }}
+          isSidebarOpen={isSidebarOpen}
+        />
+      </div>
+      <div className="flex h-[75vh]">
+        <Sidebar isOpen={isSidebarOpen} />
       </div>
       <div className="flex h-[10vh]">{/* footer */}</div>
-      <SidebarItem title="test" />
-
-      {/* Display Message/Error Area
-      {message && (
-        <div
-          className={`p-3 mb-4 rounded text-center ${
-            error ||
-            message.startsWith("Error") ||
-            message.startsWith("Failed") ||
-            message.startsWith("Adding")
-              ? "bg-red-100 text-red-700"
-              : "bg-blue-100 text-blue-700"
-          }`}
-        >
-          {message}
-        </div>
-      )} */}
-
-      {/* Sports List */}
-      <div className="bg-white shadow-md rounded-lg p-4 mb-6">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold text-gray-700">
-            Available Sports
-          </h2>
-        </div>
-      </div>
     </div>
   );
 }
