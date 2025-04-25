@@ -21,15 +21,31 @@ img {
   cursor: pointer;
 }
 
+#zagreb {
+  display: none;
+}
+
 h1 {
-  font-size: 35px;
+  font-size: 25px;
   color: var(--foreground);
   font-weight: bold;
-  margin-left: 80px;
-  text-align: start;
+  text-align: center;
 }
 
 #profile {
   height: 50px;
   display: block;
+}
+
+@media (min-width: 768px) {
+  #zagreb {
+    display: flex;
+    margin-left: 10px;
+  }
+
+  h1 {
+    font-size: 35px;
+    text-align: start;
+    margin-left: 80px;
+  }
 }

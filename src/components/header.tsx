@@ -14,7 +14,7 @@ export default function Header({ onMenuToggle, isSidebarOpen }: HeaderProps) {
           alt="Menu"
         />
       </button>
-      <a href="https://www.zagreb.hr/">
+      <a className="sm:none md:flex" id="zagreb" href="https://www.zagreb.hr/">
         <img src="/zagreb.svg" alt="Zagreb" />
       </a>
       <div className="w-[80%]">
