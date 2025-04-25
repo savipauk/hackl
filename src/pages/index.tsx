@@ -37,6 +37,7 @@ export default function Home({ initialSports, error }: HomeProps) {
         {/* content */}
       </div>
       <div className="flex h-[10vh]">{/* footer */}</div>
+      <SidebarItem title="test" />
 
       {/* Display Message/Error Area
       {message && (
