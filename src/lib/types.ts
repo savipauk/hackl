@@ -97,7 +97,7 @@ export interface Position {
   lat: number;
   lng: number;
   address: string;
-=======
+}
 
 export type Sport = {
   id: string;
