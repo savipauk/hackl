@@ -1,0 +1,29 @@
+.card {
+  height: 300px;
+  border-radius: 10px;
+  width: 200px;
+  overflow: hidden;
+}
+
+.middle {
+  height: 400px;
+  width: 300px;
+}
+
+.image {
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  .photo {
+    min-height: 100%;
+    object-fit: cover;
+  }
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  height: 20%;
+  background: var(--primary);
+  justify-content: center;
+}

@@ -34,3 +34,36 @@ body {
   margin-top: 50px;
   width: 500px;
 }
+
+.content {
+  width: 80%;
+  margin: 0 auto 0 auto;
+  h1 {
+    font-size: 2rem;
+    margin: 50px 0 20px 0;
+    color: var(--primary);
+  }
+  hr {
+    color: darkgray;
+  }
+  p {
+    color: black;
+    font-weight: normal;
+    padding: 10px;
+  }
+}
+
+.addButton {
+  background: var(--secondary);
+  color: var(--foreground);
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 100px;
+}
+
+main {
+  margin: 10px;
+}
