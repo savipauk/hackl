@@ -1,10 +1,14 @@
 @import "tailwindcss/preflight";
 
+@tailwind base;
+@tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #ffffff;
+  --primary: #163d74;
+  --primaryDark: #11305b;
+  --secondary: #e56002;
 }
 
 @theme inline {
@@ -16,7 +20,6 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
     --foreground: #ededed;
   }
 }
