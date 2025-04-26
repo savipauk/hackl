@@ -2,6 +2,7 @@ import "@/styles/sidebarItem.css";
 import { useEffect, useState } from "react";
 import SidebarItemMenu from "./sidebarItemMenu";
 import { SportInfoOutput } from "@/lib/types";
+import Cookies from 'js-cookie';
 
 interface SidebarItemProps {
   title: string;
@@ -9,10 +10,16 @@ interface SidebarItemProps {
   hasMenu?: boolean;
 }
 
+function GoToSportCategory(params: SidebarItemProps) {
+  console.log(params.title)
+  Cookies.set("title", params.title);
+  window.location.href = "/sport";
+}
+
 export default function SidebarItem({
   title,
   events = false,
-  hasMenu = false,
+  hasMenu = false
 }: SidebarItemProps) {
   const [isItemOpen, setIsItemOpen] = useState(false);
 
@@ -51,7 +58,14 @@ export default function SidebarItem({
 
   return (
     <div>
-      <div className="sidebar-item" onClick={() => setIsItemOpen(!isItemOpen)}>
+      <div className="sidebar-item" onClick={() => {
+        if (!hasMenu) {
+          GoToSportCategory({title});
+        } else {
+          setIsItemOpen(!isItemOpen)
+        }
+      }}
+      >
         <h2>{title}</h2>
         {!events ? (
           <img
