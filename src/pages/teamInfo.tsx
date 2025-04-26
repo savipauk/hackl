@@ -1,64 +1,79 @@
-import { useState } from "react";
-import "@/styles/teamInfo.css";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
+import { useEffect, useState } from "react";
 
-export default function TeamInfo() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+interface TeamData {
+  id: string;
+  teamName: string;
+  category: string;
+  sport: string;
+  teamLogo: string;
+  members: string;
+  wins: string;
+  losses: string;
+  draws: string;
+  totalPoints: string;
+  teamRecord: string;
+  tournamentsParticipated: string;
+  matchesHomeTeam: string;
+  matchesAwayTeam: string;
+}
+
+export default function TeamPage({ teamId }: { teamId: string }) {
+  const [teamData, setTeamData] = useState<TeamData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchTeamData = async () => {
+      try {
+        const response = await fetch("/api/teams/getteambyhash", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              teamId: "rec1BQcDN5fesvwUA"
+            })
+          });
+
+        if (!response.ok) {
+          throw new Error("Neuspješno dohvaćanje podataka.");
+        }
+
+        const data = await response.json();
+        if (data && data.length > 0) {
+          setTeamData(data[0]);
+        } else {
+          setError("Tim nije pronađen.");
+        }
+      } catch (err) {
+        console.error(err);
+        setError("Greška pri dohvaćanju tima.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTeamData();
+  }, [teamId]);
+
+  if (loading) return <p>Učitavanje...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
-    <div className="page-wrapper">
-      {/* Header */}
-      <header className="header">
-        <Header
-                  onMenuToggle={() => setIsSidebarOpen(!isSidebarOpen)}
-                  isSidebarOpen={isSidebarOpen}
-                />
-      </header>
-
-      {/* Main Content */}
-      <main className="main-content">
-        {/* Club Info */}
-        <section className="club-info">
-          <img src="/dinamo-logo.png" alt="NK Dinamo" className="club-logo" />
-          <h2 className="club-name">NK Dinamo</h2>
-          <p className="club-description">
-            NK Dinamo Zagreb je najtrofejniji i jedan od najpoznatijih nogometnih klubova u Hrvatskoj,
-            osnovan 1945. godine. Klub igra svoje domaće utakmice na stadionu Maksimir u Zagrebu.
-            Dinamo je poznat po svojoj snažnoj školi mladih igrača te brojnim nastupima u europskim
-            natjecanjima poput Lige prvaka i Europske lige. Tijekom svoje povijesti, Dinamo je osvojio
-            brojne domaće naslove i kupove, te je često bio temelj hrvatske nogometne reprezentacije.
-          </p>
-        </section>
-
-        {/* Training List */}
-        <section className="training-section">
-          <h3 className="training-title">POPIS TRENINGA</h3>
-          <div className="training-table-wrapper">
-            <table className="training-table">
-              <thead>
-                <tr>
-                  <th>DATUM</th>
-                  <th>VRIJEME</th>
-                  <th>LOKACIJA</th>
-                  <th>KATEGORIJA</th>
-                </tr>
-              </thead>
-              <tbody>
-                  <tr>
-                    <td>26.04.2025.</td>
-                    <td>18:00</td>
-                    <td>NS Maksimir</td>
-                    <td>Juniori</td>
-                  </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-      </main>
-
-      {/* Footer */}
-      <Footer />
+    <div className="team-page">
+      {teamData && (
+        <>
+          <img src={teamData.teamLogo} alt={teamData.teamName} className="team-logo" />
+          <h1>{teamData.teamName}</h1>
+          <p>Kategorija: {teamData.category}</p>
+          <p>Sport: {teamData.sport}</p>
+          <p>Članova: {teamData.members}</p>
+          <p>Pobjede: {teamData.wins || "0"}</p>
+          <p>Porazi: {teamData.losses || "0"}</p>
+          <p>Neriješeno: {teamData.draws || "0"}</p>
+          <p>Ukupno bodova: {teamData.totalPoints || "0"}</p>
+        </>
+      )}
     </div>
   );
 }
