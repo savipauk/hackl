@@ -19,7 +19,9 @@ export default function Header({ onMenuToggle, isSidebarOpen }: HeaderProps) {
         <img src="/zagreb.svg" alt="Zagreb" />
       </a>
       <div className="w-[80%]">
+        <a href="/">
         <h1>{appTitle}</h1>
+        </a>
       </div>
       <a className="w-[10%] flex justify-end" href="/login">
         <img id="profile" src="/profile.svg" alt="Profile"/>
