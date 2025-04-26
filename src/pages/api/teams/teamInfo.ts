@@ -65,56 +65,48 @@ export default async function handler(
     }
   }
 
-
-  if (req.method === 'POST') {
-    try {
-      const { category, sport } = req.body;
-  
-      // 1. Fetch ALL records without filtering
-      const all_records = await base('Team')
-        .select({
-          fields: ['Team Name', 'Sport', 'Total Points', 'Team Logo', 'Category']
-        })
-        .all();
-  
-      // 2. Client-side filtering
-      const filtered_records = all_records.filter(record => {
-        const categoryMatch = !category || 
-          (Array.isArray(record.fields.Category) 
-            ? record.fields.Category.includes(category)
-            : (record.fields.Category === category));
-          
-        const sportMatch = !sport || 
-          (Array.isArray(record.fields.Sport)
-            ? record.fields.Sport.includes(sport)
-            : (record.fields.Sport === sport));
+    if (req.method === 'POST') {
+        try {
+          const { category, sport } = req.body;
       
-        return categoryMatch && sportMatch;
-      });
-      // 3. Transform records
-      const teams = filtered_records.map((record) => {
-        const recordWithTime = record as AirtableRecordWithTime<FieldSet>;
-        const logoAttachment = recordWithTime.fields['Team Logo'] as Airtable.Attachment[] | undefined;
-  
-        return {
-          id: recordWithTime.id,
-          teamName: String(recordWithTime.fields['Team Name'] || ''),
-          sport: String(recordWithTime.fields['Sport'] || ''),
-          totalPoints: Number(recordWithTime.fields['Total Points'] || 0),
-          logoUrl: logoAttachment?.[0]?.url,
-          category: String(recordWithTime.fields['Category'] || ''),
-          createdAt: recordWithTime.createdTime,
-        };
-      });
-  
-      return res.status(200).json(teams);
-  
-    } catch (error) {
-      console.error('Airtable error:', error);
-      return res.status(500).json({
-        error: 'Failed to fetch teams',
-        details: error instanceof Error ? error.message : 'Unknown error'
-      });
-    }
-  }
+          // Build Airtable query with proper typing
+          const queryConfig: Airtable.SelectOptions<FieldSet> = {
+            fields: ['Team Name', 'Sport', 'Total Points', 'Team Logo', 'Category'],
+            filterByFormula: `AND(
+              ${category ? `FIND('${category}', ARRAYJOIN({Category}))` : '1=1'},
+              ${sport ? `FIND('${sport}', ARRAYJOIN({Sport}))` : '1=1'}
+            )`
+          };
+      
+          // Execute filtered query
+          const team_records = await base('Team')
+            .select(queryConfig)
+            .all();
+      
+          // Transform records
+          const teams = team_records.map((record) => {
+            const recordWithTime = record as AirtableRecordWithTime<FieldSet>;
+            const logoAttachment = recordWithTime.fields['Team Logo'] as Airtable.Attachment[] | undefined;
+      
+            return {
+              id: recordWithTime.id,
+              teamName: String(recordWithTime.fields['Team Name'] || ''),
+              sport: String(recordWithTime.fields['Sport'] || ''),
+              totalPoints: Number(recordWithTime.fields['Total Points'] || 0),
+              logoUrl: logoAttachment?.[0]?.url,
+              category: String(recordWithTime.fields['Category'] || ''),
+              createdAt: recordWithTime.createdTime,
+            };
+          });
+      
+          return res.status(200).json(teams);
+      
+        } catch (error) {
+          console.error('Airtable error:', error);
+          return res.status(500).json({
+            error: 'Failed to fetch teams',
+            details: error instanceof Error ? error.message : 'Unknown error'
+          });
+        }
+      }
 }
