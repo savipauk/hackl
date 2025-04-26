@@ -10,6 +10,7 @@ export type TeamOutput = {
   sport: string;
   totalPoints: number;
   logoUrl?: string;
+  category: string;
   createdAt: string;
 };
 
