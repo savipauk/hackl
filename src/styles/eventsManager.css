@@ -151,19 +151,3 @@
     color:black;
   }
   
-  /* Footer */
-  .footer-wrapper {
-    height: 64px;
-    background: #d97706;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-    font-size: 0.875rem;
-    flex-direction: column;
-  }
-  
-  .footer-text {
-    font-size: 0.75rem;
-    margin-top: 0.25rem;
-  }
