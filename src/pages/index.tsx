@@ -4,6 +4,8 @@ import "@/styles/globals.css";
 import Sidebar from "@/components/sidebar";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import Carousel from "@/components/carousel";
+import Card from "@/components/card";
 
 type Sport = {
   id: string;
@@ -25,10 +27,30 @@ export default function Home() {
           isSidebarOpen={isSidebarOpen}
         />
       </div>
-      <div className="flex h-[75vh]">
+      <div className="flex min-h-[77vh]">
         <Sidebar isOpen={isSidebarOpen} />
+        <div className="content">
+          <h1>Sportski savez Grada Zagreba</h1>
+          <hr />
+          <p>
+            Sportski savez Grada Zagreba krovna je sportska organizacija koja
+            okuplja 77 sportskih saveza i obuhvaća više od 90 različitih
+            sportova. Njegova je misija razvoj zagrebačkog sporta kroz potporu
+            klubovima, savezima i sportašima svih dobnih skupina.
+          </p>
+          <Carousel />
+          <h1>Dodaj novi sportski događaj!</h1>
+          <hr />
+          <p>
+            Dodajte novi sportski događaj koji još nije zabilježen na našoj
+            stranici i doprinesite promociji zagrebačkog sporta!
+          </p>
+          <div className="flex flex-col justify-center items-center">
+            <button className="addButton">Dodaj!</button>
+          </div>
+        </div>
       </div>
-      <div className="flex h-[10vh]">
+      <div className="flex h-[8vh]">
         <Footer />
       </div>
     </div>

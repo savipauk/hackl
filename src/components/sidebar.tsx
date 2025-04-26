@@ -36,11 +36,14 @@ export default function Sidebar({ isOpen }: SidebarProps) {
 
   return (
     <div className="sidebar" style={{ display: isOpen ? "flex" : "none" }}>
+      <h4 className="title">SPORTOVI</h4>
       {sports.map((sport) => (
         <div>
-          <SidebarItem key={sport.id} title={sport.sportName} />
+          <SidebarItem key={sport.id} title={sport.sportName} hasMenu />
         </div>
       ))}
+      <hr />
+      <SidebarItem title="Događaji" events />
     </div>
   );
 }
