@@ -38,28 +38,22 @@ export default async function handler(
       const sanitizedHomeTeam = sanitizeFormulaValue(homeTeam);
       const sanitizedAwayTeam = sanitizeFormulaValue(awayTeam);
 
-      // Convert date to ISO format (handle different date formats)
-      const parseDate = (dateString: string) => {
-        const [day, month, year] = dateString.split('/');
-        return new Date(`${year}-${month}-${day}`).toISOString();
-      };
-
       const newRecord: AirtableRecord<FieldSet> = await base('Event').create([
         {
           fields: {
             'Match Time': sanitizedMatchTime,
-            'Sport': sanitizedSport,
-            'Category': sanitizedCategory,
-            'Match Date': parseDate(sanitizedMatchDate),
-            'Location': sanitizedLocation,
-            'Home Team': sanitizedHomeTeam,
-            'Away Team': sanitizedAwayTeam,
-            'Home Team Score': "",
-            'Away Team Score': "",
-            'Match Result': "",
-            'Officials': "",
-            'Statistics': "",
-            'Tournaments': "",
+            'Sport': [sanitizedSport],
+            'Category': [sanitizedCategory],
+            'Match Date': sanitizedMatchDate,
+            'Location': [sanitizedLocation],
+            'Home Team': [sanitizedHomeTeam],
+            'Away Team': [sanitizedAwayTeam],
+            // 'Home Team Score': "",
+            // 'Away Team Score': "",
+            // 'Match Result': "",
+            // 'Officials': "",
+            // 'Statistics': "",
+            // 'Tournaments': "",
           }
         }
       ]).then(records => records[0]);
