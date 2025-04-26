@@ -10,6 +10,7 @@ export default function Login() {
     e.preventDefault();
     if(username === "test" || password === "test"){
         console.log("Login is successful");
+        window.location.href = "/";
     }
     else{
         console.log("Login failed");
