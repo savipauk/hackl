@@ -1,0 +1,12 @@
+.eventDateCard {
+  background-color: lightgray;
+}
+
+.eventInfo {
+  color: var(--primary);
+  padding: 0 20px 0 20px;
+}
+
+.result {
+  color: var(--secondary);
+}

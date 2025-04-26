@@ -6,38 +6,56 @@ import "@/styles/events.css";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { Value } from "react-calendar/src/shared/types.js";
+import { EventOutput, SportOutput } from "@/lib/types";
+import EventOnDate from "@/components/eventOnDate";
 
 export default function Events() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [upcomingDates, setUpcomingDates] = useState(true);
   const [date, setDate] = useState<Value>(new Date());
+  const [events, setEvents] = useState<EventOutput[]>();
+  const [sportNames, setSportNames] = useState<string[]>("");
 
-  function getDate() {
-    let parsedDate = new Date();
-    return parsedDate + "." + (parsedDate.getMonth() + 1) + ".";
-  }
+  useEffect(() => {
+    async function fetchEvents() {
+      try {
+        const response = await fetch("/api/events/eventInfo");
 
-  //   useEffect(() => {
-  //       async function fetchSports() {
-  //         try {
-  //           const response = await fetch("/api/sports");
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
 
-  //           if (!response.ok) {
-  //             throw new Error(`HTTP error! status: ${response.status}`);
-  //           }
+        const data: EventOutput[] = await response.json();
+        setEvents(data);
+        events?.map((event) => {});
+      } catch {
+        const data: EventOutput[] = [];
+        setEvents(data);
+      }
+    }
+    async function fetchSport(id: string) {
+      try {
+        const response = await fetch("/api/sports/byhash", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ sportId: id }),
+        });
 
-  //           const data: SportOutput[] = await response.json();
-  //           setSports(data);
-  //         } catch (err) {
-  //           setError(err instanceof Error ? err.message : "Failed to fetch sports");
-  //           setSports([]);
-  //         } finally {
-  //           setLoading(false);
-  //         }
-  //       }
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
 
-  //       fetchSports();
-  //     }, []);
+        const data: SportOutput = await response.json();
+        setSportTeam(data.sportName);
+      } catch {
+        setSportTeam("Nema tima");
+      }
+    }
+
+    fetchEvents();
+  }, []);
 
   return (
     <div>
@@ -63,19 +81,19 @@ export default function Events() {
             className={upcomingDates ? "emptyButton" : "selectedButton"}
             onClick={() => setUpcomingDates(false)}
           >
-            PROŠLI DOGAĐAJI
+            DOGAĐAJI GRAĐANA
           </button>
           <button
             className={`${upcomingDates ? "selectedButton" : "emptyButton"}`}
             onClick={() => setUpcomingDates(true)}
           >
-            NADOLAZEĆI DOGAĐAJI
+            DOGAĐAJI SAVEZA
           </button>
         </div>
         {upcomingDates ? (
-          <h1 className="dateTitle">Nadolazeći sportski događaji</h1>
+          <h1 className="dateTitle">Događaji saveza</h1>
         ) : (
-          <h1 className="dateTitle">Prošli sportski događaji</h1>
+          <h1 className="dateTitle">Događaji građana</h1>
         )}
         <div
           style={{ color: "black" }}
@@ -90,8 +108,22 @@ export default function Events() {
           />
         </div>
         <h1 className="dateTitle">
-          DOGAĐAJI {date?.toLocaleString().slice(0, 7)}
+          DOGAĐAJI
+          {date instanceof Date
+            ? " " + date.getDate() + "." + (date.getMonth() + 1) + "."
+            : "Invalid date"}
         </h1>
+        <div>
+          {events?.map((event) => {
+            if (
+              event.matchDate &&
+              date instanceof Date &&
+              new Date(event.matchDate).toDateString() === date.toDateString()
+            ) {
+              return <EventOnDate event={event} />;
+            }
+          })}
+        </div>
       </div>
       <div className="flex h-[8vh]">
         <Footer />
