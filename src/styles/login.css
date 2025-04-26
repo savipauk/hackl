@@ -1,0 +1,91 @@
+.login-page{
+    background-color: var(--primary);
+    width: 100%;
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.zagreb-img{
+    display: flex;
+    justify-content: center;
+    margin: 40px;
+}
+
+.login-container {
+    height: 100%;
+    width: 25%;
+    margin: 0 10px 0 10px;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: var(--primary);
+  }
+  
+  .login-container h1 {
+    color: #fff;
+    margin: 40px;
+    font-size: 40px;
+    font-weight: bold;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 3px;
+    margin-left: 15px;
+    color: #fff;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #ddddddc3;
+    border-radius: 20px;
+    box-sizing: border-box;
+    color: black;
+  }
+  
+  .button-group {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 40px;
+  }
+
+  .button-group a{
+    margin:10px;
+    color: #E56002;
+    border-bottom: 1px solid #E56002;
+  }
+  
+  .submit-btn {
+    background-color: #fff;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    flex: 1;
+    margin-right: 10px;
+    font-weight: bold;
+    width: 50%;
+  }
+  
+  .submit-btn:hover {
+    background-color: #000;
+    color:white;
+  }
+
+  @media (max-width: 768px) {
+    .login-container{
+        width:100%;
+        height:100%;
+    }
+  }
