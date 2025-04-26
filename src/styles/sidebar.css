@@ -11,6 +11,14 @@
   height: 85dvh;
   z-index: 500;
   box-sizing: border-box;
+  overflow-y: scroll;
+  user-select: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none;
 }
 
 .sidebar.w-0 {
