@@ -138,7 +138,7 @@ export default function EventsManager() {
                     />
                   </div>
                   <div className="form-group">
-                    <label>DOMAČI TIM</label>
+                    <label>DOMAĆI TIM</label>
                     <input
                       type="text"
                       name="homeTeam"
@@ -246,7 +246,7 @@ export default function EventsManager() {
                     />
                   </div>
                   <div className="form-group">
-                    <label>DOMAČI TIM</label>
+                    <label>DOMAĆI TIM</label>
                     <input
                       type="text"
                       name="homeTeam"
