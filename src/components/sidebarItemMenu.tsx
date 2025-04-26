@@ -13,6 +13,10 @@ export default function SidebarItemMenu({ sportInfo }: SidebarItemMenuProps) {
         {sportInfo?.categories.map((category) => (
           <SidebarItem title={category.category} events />
         ))}
+        {sportInfo?.tournaments.length != 0 ? <hr /> : ""}
+        {sportInfo?.tournaments.map((category) => (
+          <SidebarItem title={category.tournament} events />
+        ))}
       </div>
     </div>
   );

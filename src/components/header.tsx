@@ -15,14 +15,21 @@ export default function Header({ onMenuToggle, isSidebarOpen }: HeaderProps) {
           alt="Menu"
         />
       </button>
-      <a className="sm:none md:flex" id="zagreb" href="https://www.zagreb.hr/" target="_blank">
+      <a
+        className="sm:none md:flex"
+        id="zagreb"
+        href="https://www.zagreb.hr/"
+        target="_blank"
+      >
         <img src="/zagreb.svg" alt="Zagreb" />
       </a>
       <div className="w-[80%]">
-        <h1>{appTitle}</h1>
+        <a href="/">
+          <h1>{appTitle}</h1>
+        </a>
       </div>
       <a className="w-[10%] flex justify-end" href="/login">
-        <img id="profile" src="/profile.svg" alt="Profile"/>
+        <img id="profile" src="/profile.svg" alt="Profile" />
       </a>
     </div>
   );
