@@ -20,6 +20,20 @@ export type CategoryOutput = {
   createdAt: string;
 };
 
+export type EventOutput = {
+  id: string;
+  matchTime: string;
+  matchDate: string;
+  sport: string;
+  category: string;
+  location: string;
+  homeTeam: string;
+  awayTeam: string;
+  homeTeamScore: number;
+  awayTeamScore: number;
+  createdAt: string;
+}
+
 export type TournamentOutput = {
   id: string;
   tournament: string;
@@ -70,5 +84,28 @@ export type LocationsOutput  = {
   matchesHosted: string;
   tournamentsHosted: string;
   sport: string;
+  createdAt: string;
+}
+
+
+export type Sport = {
+  id: string;
+  sportName: string;
+  description: string;
+  teamsParticipating: string; // fk
+  venuesUsed: string; // fk
+  matchesScheduled: string; // fk
+  playersInvolved: string;
+  tournaments: string; // fk
+  officialsAssigned: string;
+  statisticsAvailable: string;
+  category: string // fk
+  createdAt: string;
+}
+
+export type LocationByHash = {
+  id: string;
+  venueName: string;
+  address: string;
   createdAt: string;
 }
