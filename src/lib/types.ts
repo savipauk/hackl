@@ -20,6 +20,20 @@ export type CategoryOutput = {
   createdAt: string;
 };
 
+export type EventOutput = {
+  id: string;
+  matchTime: string;
+  matchDate: string;
+  sport: string;
+  category: string;
+  location: string;
+  homeTeam: string;
+  awayTeam: string;
+  homeTeamScore: number;
+  awayTeamScore: number;
+  createdAt: string;
+}
+
 export type TournamentOutput = {
   id: string;
   tournament: string;
