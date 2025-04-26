@@ -1,4 +1,5 @@
 import "@/styles/header.css";
+import { appTitle } from "@/lib/globals";
 
 interface HeaderProps {
   onMenuToggle: () => void;
@@ -18,7 +19,7 @@ export default function Header({ onMenuToggle, isSidebarOpen }: HeaderProps) {
         <img src="/zagreb.svg" alt="Zagreb" />
       </a>
       <div className="w-[80%]">
-        <h1>Sport na volej!</h1>
+        <h1>{appTitle}</h1>
       </div>
       <a className="w-[10%] flex justify-end" href="/login">
         <img id="profile" src="/profile.svg" alt="Profile"/>
