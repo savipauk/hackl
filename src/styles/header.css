@@ -5,6 +5,7 @@
   padding: 20px;
   text-align: center;
   width: 100%;
+  border-bottom: 10px var(--secondary) solid;
 }
 
 .hamburger {

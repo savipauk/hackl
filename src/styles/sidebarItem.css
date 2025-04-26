@@ -4,10 +4,10 @@
   padding: 10px;
   font-weight: bold;
   cursor: pointer;
-  background-color: var(--primary);
+  background-color: var(--primaryDark);
   margin: 5px 0 5px 0;
 }
 
 .sidebar-item:hover {
-  background-color: var(--primaryDark);
+  background-color: var(--primary);
 }
