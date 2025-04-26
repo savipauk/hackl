@@ -7,7 +7,10 @@
   transition: width 300ms ease-in-out;
   overflow: hidden;
   position: fixed;
-  height: 75dvh;
+  top: 15%;
+  height: 85dvh;
+  z-index: 500;
+  box-sizing: border-box;
 }
 
 .sidebar.w-0 {
