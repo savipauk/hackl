@@ -109,3 +109,21 @@ export type LocationByHash = {
   address: string;
   createdAt: string;
 }
+
+export type TeamInformation = {
+  id: string;
+  teamName: string;
+  category: string;
+  sport: string;
+  teamLogo?: string;
+  members: string;
+  wins: string;
+  losses: string;
+  draws: string;
+  totalPoints: string;
+  teamRecord: string;
+  tournamentsParticipated: string;
+  matchesHomeTeam: string;
+  matchesAwayTeam: string;
+  createdAt: string;
+}
