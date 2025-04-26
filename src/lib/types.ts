@@ -86,3 +86,15 @@ export type LocationsOutput  = {
   sport: string;
   createdAt: string;
 }
+
+export interface GeocodingResult {
+  lat: string;
+  lon: string;
+  display_name: string;
+}
+
+export interface Position {
+  lat: number;
+  lng: number;
+  address: string;
+}
