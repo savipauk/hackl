@@ -97,4 +97,44 @@ export interface Position {
   lat: number;
   lng: number;
   address: string;
+=======
+
+export type Sport = {
+  id: string;
+  sportName: string;
+  description: string;
+  teamsParticipating: string; // fk
+  venuesUsed: string; // fk
+  matchesScheduled: string; // fk
+  playersInvolved: string;
+  tournaments: string; // fk
+  officialsAssigned: string;
+  statisticsAvailable: string;
+  category: string // fk
+  createdAt: string;
+}
+
+export type LocationByHash = {
+  id: string;
+  venueName: string;
+  address: string;
+  createdAt: string;
+}
+
+export type TeamInformation = {
+  id: string;
+  teamName: string;
+  category: string;
+  sport: string;
+  teamLogo?: string;
+  members: string;
+  wins: string;
+  losses: string;
+  draws: string;
+  totalPoints: string;
+  teamRecord: string;
+  tournamentsParticipated: string;
+  matchesHomeTeam: string;
+  matchesAwayTeam: string;
+  createdAt: string;
 }

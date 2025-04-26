@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { useRouter } from "next/router"; // Dodajte ovaj import
 import "@/styles/globals.css";
 import Sidebar from "@/components/sidebar";
 import Header from "@/components/header";
@@ -16,6 +16,7 @@ type Sport = {
 
 export default function Home() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const router = useRouter();
 
   return (
     <div className="container mx-auto p-6 bg-gray-50 min-h-screen">
@@ -46,7 +47,12 @@ export default function Home() {
             stranici i doprinesite promociji zagrebačkog sporta!
           </p>
           <div className="flex flex-col justify-center items-center">
-            <button className="addButton">Dodaj!</button>
+            <button 
+              className="addButton" 
+              onClick={() => router.push('/eventsManager')} // Promijenite ovu liniju
+            >
+              Dodaj!
+            </button>
           </div>
         </div>
       </div>
