@@ -10,7 +10,6 @@ export default function Home() {
         />
       </div>
       <div className="flex h-[75vh]">
-
       </div>
       <div className="flex h-[10vh]">
         <Footer />
