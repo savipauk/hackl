@@ -86,3 +86,26 @@ export type LocationsOutput  = {
   sport: string;
   createdAt: string;
 }
+
+
+export type Sport = {
+  id: string;
+  sportName: string;
+  description: string;
+  teamsParticipating: string; // fk
+  venuesUsed: string; // fk
+  matchesScheduled: string; // fk
+  playersInvolved: string;
+  tournaments: string; // fk
+  officialsAssigned: string;
+  statisticsAvailable: string;
+  category: string // fk
+  createdAt: string;
+}
+
+export type LocationByHash = {
+  id: string;
+  venueName: string;
+  address: string;
+  createdAt: string;
+}
