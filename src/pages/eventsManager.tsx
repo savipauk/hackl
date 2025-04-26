@@ -82,42 +82,49 @@ export default function EventsManager() {
 
       {/* Main content */}
       <div className="main-content">
+
+      <div className="cover">
+          <h1 className="events flex h-[100%] justify-center items-end">
+            OSTALO
+          </h1>
+        </div>
+
+
         <Sidebar isOpen={isSidebarOpen} />
         <div className="content-area">
           
           {/* Tab navigation */}
           <div className="tab-section">
-            <h2 className="section-title">DODATNO</h2>
             <div className="tab-buttons">
               <button
                 className={`tab-button ${activeTab === "addRank" ? "active" : ""}`}
                 onClick={() => setActiveTab("addRank")}
               >
-                Unos ranga
+                UNOS RANGA
               </button>
               <button
                 className={`tab-button ${activeTab === "addClub" ? "active" : ""}`}
                 onClick={() => setActiveTab("addClub")}
               >
-                Unos kluba
+                UNOS KLUBA
               </button>
               <button
                 className={`tab-button ${activeTab === "addResult" ? "active" : ""}`}
                 onClick={() => setActiveTab("addResult")}
               >
-                Unos rezultata
+                UNOS REZULTATA
               </button>
               <button
                 className={`tab-button ${activeTab === "addTeamMember" ? "active" : ""}`}
                 onClick={() => setActiveTab("addTeamMember")}
               >
-                Dodavanje člana
+                DODAVANJE ČLANA
               </button>
               <button
                 className={`tab-button ${activeTab === "addEvent" ? "active" : ""}`}
                 onClick={() => setActiveTab("addEvent")}
               >
-                Dodavanje događaja
+                DODAVANJE DOGAĐAJA
               </button>
             </div>
           </div>
