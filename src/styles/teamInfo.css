@@ -1,138 +1,50 @@
-/* Page Wrapper */
-.page-wrapper {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-  
-  /* Header */
-  .header {
-    background-color: #0B3C73;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-  }
-  
-  .header-left {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  
-  .menu-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .menu-icon span {
-    display: block;
-    width: 24px;
-    height: 2px;
-    background-color: white;
-    margin: 4px 0;
-  }
-  
-  .title {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  
-  .user-icon {
-    width: 32px;
-    height: 32px;
-    border: 2px solid white;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .inner-circle {
-    width: 12px;
-    height: 12px;
-    background-color: white;
-    border-radius: 50%;
-  }
-  
-  /* Main Content */
-  .main-content {
-    padding: 1rem;
-    background-color: white;
-    flex-grow: 1;
-  }
-  
-  /* Club Info */
-  .club-info {
-    text-align: center;
-  }
-  
-  .club-logo {
-    width: 100px;
-    height: 100px;
-    margin: 1rem auto;
-  }
-  
-  .club-name {
-    font-size: 1.8rem;
-    color: #0B3C73;
-    margin-bottom: 1rem;
-  }
-  
-  .club-description {
-    font-size: 0.9rem;
-    color: #555;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  /* Training Section */
-  .training-section {
-    margin-top: 2rem;
-  }
-  
-  .training-title {
-    font-size: 1.2rem;
-    color: #0B3C73;
-    text-align: center;
-    margin-bottom: 1rem;
-  }
-  
-  .training-table-wrapper {
-    background-color: #f0f2f5;
-    padding: 1rem;
-    border-radius: 12px;
-  }
-  
-  .training-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9rem;
-  }
-  
-  .training-table th,
-  .training-table td {
-    padding: 0.75rem;
-    text-align: center;
-  }
-  
-  .training-table thead th {
-    color: #666;
-    font-weight: bold;
-  }
-  
-  .training-table tbody tr {
-    border-top: 1px solid #ccc;
-  }
-  
-  /* Footer */
-  .footer {
-    background-color: #C4531C;
-    color: white;
-    text-align: center;
-    padding: 0.5rem;
-    font-size: 0.8rem;
-  }
-  
+.team-page {
+  padding: 20px;
+}
+
+.team-profile {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+
+.team-logo {
+  height: 100px;
+}
+.team-page-title{
+  font-size: 25px;
+  color: var(--primary);
+  margin:20px;
+}
+
+.team-name {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.team-details {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 18px;
+}
+
+.team-stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.team-stats-table th,
+.team-stats-table td {
+  border: 1px solid #ccc;
+  padding: 12px;
+  text-align: center;
+  color:black;
+}
+
+.team-stats-table th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
