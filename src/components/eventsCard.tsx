@@ -29,7 +29,7 @@ export default function EventsCard({
           {date}, {time}, {location}
         </>
       </div>
-      <div className="flex items-center justify-evenly">
+      <div className="flex items-center justify-around">
         <div className="team">
           <img className="photo" src={homeTeamImage} />
           <div className="name">{homeTeam}</div>
