@@ -12,6 +12,14 @@ import Footer from "@/components/footer";
 import Carousel from "@/components/carousel";
 import Card from "@/components/card";
 import EventsCard from "@/components/eventsCard";
+import dynamic from 'next/dynamic';
+import MapErrorBoundary from '../components/mapErrorBoundary'
+
+
+const MapView = dynamic(() => import('../components/MapView'), {
+  ssr: false,
+  loading: () => <p>Loading map...</p>,
+});
 
 type ActiveTab =
   "events" |
@@ -34,6 +42,7 @@ export default function SportPage() {
   const [locationMap, setLocationMap] = useState<Map<string, LocationByHash>>(
     () => new Map
   );
+  const [addresses, setAddresses] = useState<string[]>([]);
 
   useEffect(() => {
     const local_category = Cookies.get("title");
@@ -65,12 +74,14 @@ export default function SportPage() {
           next.set(locationId, data);
           return next;
         });
-
+        const address: string = "Zagreb, " + data.address; // + ", " + data.venueName;
+        const new_addresses: string[] = addresses.concat([address]);
+        setAddresses(new_addresses);
       } catch (err) {
         setLocationMap(new Map());
       } finally {
         setLoading(false);
-        console.log(sports);
+        // console.log(sports);
       }
     }
 
@@ -91,7 +102,7 @@ export default function SportPage() {
         }
 
         const data: TeamInformation[] = await response.json();
-        console.log("TEAMS", data);
+        // console.log("TEAMS", data);
 
         setTeamMap(old => {
           const next = new Map(old);
@@ -99,12 +110,12 @@ export default function SportPage() {
           return next;
         });
 
-        console.log("Setting ", teamId, " with data", data[0]);
+        // console.log("Setting ", teamId, " with data", data[0]);
       } catch (err) {
         setTeamMap(new Map());
       } finally {
         setLoading(false);
-        console.log(sports);
+        // console.log(sports);
       }
     }
 
@@ -126,7 +137,7 @@ export default function SportPage() {
         }
 
         const data: EventOutput[] = await response.json();
-        console.log("EVENTS", data);
+        // console.log("EVENTS", data);
         setEvents(data);
 
         data.map((event) => {
@@ -144,7 +155,7 @@ export default function SportPage() {
         setEvents([] as EventOutput[]);
       } finally {
         setLoading(false);
-        console.log(sports);
+        // console.log(sports);
       }
     }
 
@@ -165,14 +176,14 @@ export default function SportPage() {
         }
 
         const data: Sport[] = await response.json();
-        console.log("DATA", data);
+        // console.log("DATA", data);
         setSports(data);
         fetchEventInfo(category, data[0].sportName);
       } catch (err) {
         setSports([] as Sport[]);
       } finally {
         setLoading(false);
-        console.log(sports);
+        // console.log(sports);
       }
     }
 
@@ -250,6 +261,13 @@ export default function SportPage() {
                   <>
                   </>
                 )}
+                {activeTab === "locations" && (
+                  <>
+                    <MapErrorBoundary>
+                      <MapView />
+                    </MapErrorBoundary>
+                  </>
+                )}
               </div>
             </div>
           ))}
@@ -258,6 +276,6 @@ export default function SportPage() {
       <div className="flex h-[8vh]">
         <Footer />
       </div>
-    </div>
+    </div >
   );
 }
