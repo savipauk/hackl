@@ -11,7 +11,7 @@ export default function Login() {
     e.preventDefault();
     if (username === "test" && password === "test") {
       console.log("Login is successful");
-      window.location.href = "/admin";
+      window.location.href = "/eventsManager";
     }
     else if (username === "gost" && password === "gost") {
       console.log("Login is successful");

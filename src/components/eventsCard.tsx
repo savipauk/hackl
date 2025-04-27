@@ -26,7 +26,9 @@ export default function EventsCard({ idHome,idAway,date, time, location, categor
   return (
     <div className="card">
       <div className="info">
-        <>{date}, {time}, {location}</>
+        <>
+          {date}, {time}, {location}
+        </>
       </div>
       <div className="team">
         <img className="photo" src={homeTeamImage} />
