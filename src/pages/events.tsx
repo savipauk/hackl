@@ -11,8 +11,13 @@ import {
   LocationByHash,
   LocationsOutput,
   SportOutput,
+  TeamOutput,
 } from "@/lib/types";
 import EventOnDate from "@/components/eventOnDate";
+
+type BatchSportResponse = SportOutput[];
+type BatchLocationResponse = LocationByHash[];
+type BatchTeamResponse = TeamOutput[];
 
 export default function Events() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -25,7 +30,12 @@ export default function Events() {
   const [locationMap, setLocationMap] = useState<Map<string, LocationByHash>>(
     () => new Map()
   );
-
+  const [homeTeamMap, setHomeTeamMap] = useState<Map<string, string>>(
+    () => new Map()
+  );
+  const [awayTeamMap, setAwayTeamMap] = useState<Map<string, string>>(
+    () => new Map()
+  );
   useEffect(() => {
     async function fetchEvents() {
       try {
@@ -44,6 +54,12 @@ export default function Events() {
           });
           if (!locationMap.has(event.location)) {
             fetchLocation(event.location);
+          }
+          if (!homeTeamMap.has(event.homeTeam)) {
+            fetchTeam(event.homeTeam);
+          }
+          if (!awayTeamMap.has(event.awayTeam)) {
+            fetchTeam(event.awayTeam, false);
           }
         });
       } catch {
@@ -71,9 +87,7 @@ export default function Events() {
           next.set(id, data[0].sportName);
           return next;
         });
-      } catch {
-        setSportNames(new Map());
-      }
+      } catch {}
     }
     async function fetchLocation(locationId: string) {
       try {
@@ -99,28 +113,37 @@ export default function Events() {
         });
       } catch (err) {}
     }
-    async function fetchTeam(teamId: string) {
+
+    async function fetchTeam(teamId: string, home: boolean = false) {
       try {
-        const response = await fetch("/api/teams/teaminfo", {
+        const response = await fetch("/api/teams/getteambyhash", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            locationId: teamId,
+            teamId: teamId,
           }),
         });
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const data: LocationByHash = await response.json();
+        const data: TeamOutput[] = await response.json();
 
-        setLocationMap((old) => {
-          const next = new Map(old);
-          next.set(locationId, data);
-          return next;
-        });
+        if (home) {
+          setHomeTeamMap((old) => {
+            const next = new Map(old);
+            next.set(teamId, data[0].teamName);
+            return next;
+          });
+        } else {
+          setAwayTeamMap((old) => {
+            const next = new Map(old);
+            next.set(teamId, data[0].teamName);
+            return next;
+          });
+        }
       } catch (err) {}
     }
 
@@ -195,6 +218,8 @@ export default function Events() {
                   event={event}
                   name={sportNames.get(event.sport)}
                   address={locationMap.get(event.location)?.venueName}
+                  homeTeam={homeTeamMap.get(event.homeTeam)}
+                  awayTeam={awayTeamMap.get(event.awayTeam)}
                 />
               );
             }
