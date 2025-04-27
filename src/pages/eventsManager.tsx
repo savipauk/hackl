@@ -16,6 +16,7 @@ export default function EventsManager() {
   const [activeTab, setActiveTab] = useState<ActiveTab>("addEvent");
 
   const [eventData, setEventData] = useState({
+    location: "",
     dateTime: "",
     homeTeam: "",
     awayTeam: "",
@@ -135,6 +136,16 @@ export default function EventsManager() {
               <>
                 <h2 className="form-title">Dodavanje novog događaja</h2>
                 <form onSubmit={handleEventSubmit} className="form">
+                <div className="form-group">
+                    <label>LOKACIJA</label>
+                    <input
+                      type="string"
+                      name="location"
+                      value={eventData.location}
+                      onChange={(e) => handleInputChange(e, setEventData)}
+                    />
+                  </div>
+
                   <div className="form-group">
                     <label>DATUM I VRIJEME</label>
                     <input

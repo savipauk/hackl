@@ -24,7 +24,6 @@ const MapView = dynamic(() => import('../components/MapView'), {
 type ActiveTab =
   "events" |
   "results" |
-  "teams" |
   "locations" |
   "table";
 
@@ -201,6 +200,7 @@ export default function SportPage() {
           isSidebarOpen={isSidebarOpen}
         />
       </div>
+
       <div className="flex min-h-[77vh]">
         <Sidebar isOpen={isSidebarOpen} />
         <div className="content-area">
@@ -228,12 +228,6 @@ export default function SportPage() {
                     REZULTATI
                   </button>
                   <button
-                    className={`tab-button ${activeTab === "teams" ? "active" : ""}`}
-                    onClick={() => setActiveTab("teams")}
-                  >
-                    MOMČADI
-                  </button>
-                  <button
                     className={`tab-button ${activeTab === "locations" ? "active" : ""}`}
                     onClick={() => setActiveTab("locations")}
                   >
@@ -253,13 +247,44 @@ export default function SportPage() {
                 {activeTab === "events" && (
                   <>
                     {events.map((event) => (
-                      <EventsCard date={event.matchDate} time={event.matchTime} location={locationMap.get(event.location)?.venueName} homeTeam={teamMap.get(event.homeTeam)?.teamName} awayTeam={teamMap.get(event.awayTeam)?.teamName} homeTeamImage={teamMap.get(event.homeTeam)?.teamLogo} awayTeamImage={teamMap.get(event.awayTeam)?.teamLogo} />
+                      <EventsCard idHome={event.homeTeam} idAway={event.awayTeam} date={event.matchDate} time={event.matchTime} location={locationMap.get(event.location)?.venueName} homeTeam={teamMap.get(event.homeTeam)?.teamName} awayTeam={teamMap.get(event.awayTeam)?.teamName} homeTeamImage={teamMap.get(event.homeTeam)?.teamLogo} awayTeamImage={teamMap.get(event.awayTeam)?.teamLogo}/>
                     ))}
                   </>
                 )}
-                {activeTab === "events" && (
+                {activeTab === "results" && (
                   <>
+                  {events.map((event) => (
+                      <EventsCard idHome={event.homeTeam} idAway={event.awayTeam} date={event.matchDate} time={event.matchTime} location={locationMap.get(event.location)?.venueName} homeTeam={teamMap.get(event.homeTeam)?.teamName} awayTeam={teamMap.get(event.awayTeam)?.teamName} homeTeamImage={teamMap.get(event.homeTeam)?.teamLogo} awayTeamImage={teamMap.get(event.awayTeam)?.teamLogo} homeResult={event.homeTeamScore} awayResult={event.awayTeamScore} />
+                    ))}
                   </>
+                )}
+                {activeTab === "table" && (
+                  <div className="karlo sportPageDiv">
+                    <div className="karlovlah ">
+                      <div className="vlah">
+                        <p>#</p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p>Momčad</p>
+                      </div>
+                      <p>Bodovi</p>
+                    </div>
+                    <hr />
+                    {[...teamMap]
+                      .sort((a, b) => Number(b[1].totalPoints) - Number(a[1].totalPoints))
+                      .map(([key, team], index) => (
+                        <div className="karlovlah">
+                          <div className="vlah">
+                            <h3> {index + 1}. </h3>
+                            <img src={team.teamLogo} />
+                            <h3>{team.teamName}</h3>
+                          </div>
+                          <h3>{team.totalPoints}</h3>
+                        </div >
+                      ))}
+                  </div>
                 )}
                 {activeTab === "locations" && (
                   <>
