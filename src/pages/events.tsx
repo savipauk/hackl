@@ -10,14 +10,11 @@ import {
   EventOutput,
   LocationByHash,
   LocationsOutput,
+  Sport,
   SportOutput,
   TeamOutput,
 } from "@/lib/types";
 import EventOnDate from "@/components/eventOnDate";
-
-type BatchSportResponse = SportOutput[];
-type BatchLocationResponse = LocationByHash[];
-type BatchTeamResponse = TeamOutput[];
 
 export default function Events() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -36,6 +33,9 @@ export default function Events() {
   const [awayTeamMap, setAwayTeamMap] = useState<Map<string, string>>(
     () => new Map()
   );
+  const [categoryMap, setCategoryMap] = useState<Map<string, string>>(
+    () => new Map()
+  );
   useEffect(() => {
     async function fetchEvents() {
       try {
@@ -48,18 +48,20 @@ export default function Events() {
         const data: EventOutput[] = await response.json();
         setEvents(data);
         data?.map((event) => {
-          if (sportNames.has(event.sport)) return;
-          fetchSport(event.sport).catch((error) => {
-            console.error("Error fetching sport:", error);
-          });
-          if (!locationMap.has(event.location)) {
-            fetchLocation(event.location);
-          }
-          if (!homeTeamMap.has(event.homeTeam)) {
-            fetchTeam(event.homeTeam);
-          }
-          if (!awayTeamMap.has(event.awayTeam)) {
-            fetchTeam(event.awayTeam, false);
+          if (event.matchDate === "2025-04-27") {
+            if (sportNames.has(event.sport)) return;
+            fetchSport(event.sport, event.category).catch((error) => {
+              console.error("Error fetching sport:", error);
+            });
+            if (!locationMap.has(event.location)) {
+              fetchLocation(event.location);
+            }
+            if (!homeTeamMap.has(event.homeTeam)) {
+              fetchTeam(event.homeTeam, true);
+            }
+            if (!awayTeamMap.has(event.awayTeam)) {
+              fetchTeam(event.awayTeam, false);
+            }
           }
         });
       } catch {
@@ -67,24 +69,29 @@ export default function Events() {
         setEvents(data);
       }
     }
-    async function fetchSport(id: string) {
+    async function fetchSport(sportId: string, categoryId: string) {
       try {
         const response = await fetch("/api/sports/byhash", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ sportId: id }),
+          body: JSON.stringify({ sportId: sportId }),
         });
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const data: SportOutput[] = await response.json();
+        const data: Sport[] = await response.json();
         setSportNames((old) => {
           const next = new Map(old);
-          next.set(id, data[0].sportName);
+          next.set(sportId, data[0].sportName);
+          return next;
+        });
+        setCategoryMap((old) => {
+          const next = new Map(old);
+          next.set(categoryId, data[0].category);
           return next;
         });
       } catch {}
@@ -206,7 +213,7 @@ export default function Events() {
             ? " " + date.getDate() + "." + (date.getMonth() + 1) + "."
             : "Invalid date"}
         </h1>
-        <div>
+        <div className="flex flex-col w-[60%] mx-auto">
           {events?.map((event, index) => {
             if (
               event.matchDate &&
@@ -220,6 +227,7 @@ export default function Events() {
                   address={locationMap.get(event.location)?.venueName}
                   homeTeam={homeTeamMap.get(event.homeTeam)}
                   awayTeam={awayTeamMap.get(event.awayTeam)}
+                  category={categoryMap.get(event.category)}
                 />
               );
             }

@@ -7,6 +7,7 @@ interface EventOnDateProps {
   address?: string;
   homeTeam?: string;
   awayTeam?: string;
+  category?: string;
 }
 
 export default function EventOnDate({
@@ -15,20 +16,21 @@ export default function EventOnDate({
   address,
   homeTeam,
   awayTeam,
+  category,
 }: EventOnDateProps) {
   return (
-    <div className="eventDateCard p-[10px]">
+    <div className="eventDateCard p-[10px] w-[100%]">
       <div className="flex ">
         <p className="eventInfo">{event.matchTime}</p>
         <p className="eventInfo">
           {name},{address}
         </p>
       </div>
-      <div className="flex flex-col px-[20px]">
+      <div className="eventInformation flex flex-col px-[20px]">
         <p>
           {homeTeam}&nbsp;:&nbsp;{awayTeam}
         </p>
-        <p>{event.category}</p>
+        {/* <p>{category}</p> */}
         {event.homeTeamScore && event.awayTeamScore ? (
           <p>
             REZULTAT&nbsp;{event.homeTeamScore}&nbsp;:&nbsp;
