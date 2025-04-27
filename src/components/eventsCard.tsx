@@ -39,6 +39,7 @@ export default function EventsCard({ idHome,idAway,date, time, location, categor
           <div className="name">{homeTeam}</div>
         </a>
       </div>
+      <p>:</p>
       <div className="team">
         <img className="photo" src={awayTeamImage} />
         <a className="link" onClick={() => handleTeamClick('away')}>
