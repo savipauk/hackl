@@ -87,6 +87,17 @@ export type LocationsOutput  = {
   createdAt: string;
 }
 
+export interface GeocodingResult {
+  lat: string;
+  lon: string;
+  display_name: string;
+}
+
+export interface Position {
+  lat: number;
+  lng: number;
+  address: string;
+}
 
 export type Sport = {
   id: string;
@@ -107,5 +118,23 @@ export type LocationByHash = {
   id: string;
   venueName: string;
   address: string;
+  createdAt: string;
+}
+
+export type TeamInformation = {
+  id: string;
+  teamName: string;
+  category: string;
+  sport: string;
+  teamLogo?: string;
+  members: string;
+  wins: string;
+  losses: string;
+  draws: string;
+  totalPoints: string;
+  teamRecord: string;
+  tournamentsParticipated: string;
+  matchesHomeTeam: string;
+  matchesAwayTeam: string;
   createdAt: string;
 }
