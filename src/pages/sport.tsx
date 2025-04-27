@@ -246,7 +246,7 @@ export default function SportPage() {
                 {activeTab === "events" && (
                   <>
                     {events.map((event) => (
-                      <EventsCard date={event.matchDate} time={event.matchTime} location={locationMap.get(event.location)?.venueName} homeTeam={teamMap.get(event.homeTeam)?.teamName} awayTeam={teamMap.get(event.awayTeam)?.teamName} homeTeamImage={teamMap.get(event.homeTeam)?.teamLogo} awayTeamImage={teamMap.get(event.awayTeam)?.teamLogo} />
+                      <EventsCard idHome={event.homeTeam} idAway={event.awayTeam} date={event.matchDate} time={event.matchTime} location={locationMap.get(event.location)?.venueName} homeTeam={teamMap.get(event.homeTeam)?.teamName} awayTeam={teamMap.get(event.awayTeam)?.teamName} homeTeamImage={teamMap.get(event.homeTeam)?.teamLogo} awayTeamImage={teamMap.get(event.awayTeam)?.teamLogo} />
                     ))}
                   </>
                 )}

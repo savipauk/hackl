@@ -3,7 +3,6 @@ import Header from "@/components/header";
 import Sidebar from "@/components/sidebar";
 import { useEffect, useState } from "react";
 import "@/styles/teamInfo.css";
-import { cookies } from "next/headers";
 import Cookies from 'js-cookie';
 
 interface TeamData {
@@ -29,10 +28,10 @@ export default function TeamInfoPage() {
   const [sportName, setSportName] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  const teamId = Cookies.get("teamID");
+  const teamId = Cookies.get("teamId");
 
   useEffect(() => {
+
     const fetchTeamData = async () => {
       try {
         const response = await fetch("/api/teams/getteambyhash", {
