@@ -12,9 +12,11 @@ interface EventsCardProps {
   awayTeamImage?: string;
   homeTeam?: string;
   awayTeam?: string;
+  homeResult?: number;
+  awayResult?: number;
 }
 
-export default function EventsCard({ idHome,idAway,date, time, location, category, homeTeamImage, awayTeamImage, homeTeam, awayTeam }: EventsCardProps) {
+export default function EventsCard({ idHome,idAway,date, time, location, category, homeTeamImage, awayTeamImage, homeTeam, awayTeam , homeResult, awayResult}: EventsCardProps) {
   const handleTeamClick = (teamType: 'home' | 'away') => {
     const teamName = teamType === 'home' ? idHome : idAway;
     if(teamName) {
