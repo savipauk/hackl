@@ -7,8 +7,9 @@
   transition: width 300ms ease-in-out;
   overflow: hidden;
   position: fixed;
-  top: 15%;
-  height: 85dvh;
+  top: 0;
+  margin-top: 13vh;
+  height: 87dvh;
   z-index: 500;
   box-sizing: border-box;
   overflow-y: scroll;

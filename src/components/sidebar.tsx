@@ -43,7 +43,9 @@ export default function Sidebar({ isOpen }: SidebarProps) {
         </div>
       ))}
       <hr />
-      <SidebarItem title="Događaji" events />
+      <a href="/events">
+        <SidebarItem title="Događaji" events />
+      </a>
     </div>
   );
 }

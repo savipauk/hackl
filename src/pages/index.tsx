@@ -1,18 +1,17 @@
 import { useState } from "react";
-import { useRouter } from "next/router"; // Dodajte ovaj import
+import { useRouter } from "next/router";
 import "@/styles/globals.css";
 import Sidebar from "@/components/sidebar";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Carousel from "@/components/carousel";
-import Card from "@/components/card";
 
-type Sport = {
-  id: string;
-  sportName: string;
-  description: string;
-  createdAt: string;
-};
+// type Sport = {
+//   id: string;
+//   sportName: string;
+//   description: string;
+//   createdAt: string;
+// };
 
 export default function Home() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -47,9 +46,9 @@ export default function Home() {
             stranici i doprinesite promociji zagrebačkog sporta!
           </p>
           <div className="flex flex-col justify-center items-center">
-            <button 
-              className="addButton" 
-              onClick={() => router.push('/eventsManager')} // Promijenite ovu liniju
+            <button
+              className="addButton"
+              onClick={() => router.push("/eventsManager")} // Promijenite ovu liniju
             >
               Dodaj!
             </button>

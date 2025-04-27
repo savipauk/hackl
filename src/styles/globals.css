@@ -23,6 +23,13 @@
     --foreground: #ededed;
   }
 }
+html {
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
 
 body {
   background: var(--background);
@@ -66,4 +73,45 @@ body {
 
 main {
   margin: 10px;
+}
+
+.emptyButton {
+  border: 1px var(--primary) solid;
+  color: var(--primary);
+  padding: 10px;
+  text-align: center;
+  width: 40%;
+  border-radius: 5px;
+  height: 10%;
+  cursor: pointer;
+}
+
+.selectedButton {
+  height: 10%;
+  border-radius: 5px;
+  width: 40%;
+  text-align: center;
+  padding: 10px;
+  border: 1px var(--primary) solid;
+  color: white;
+  background-color: var(--primary);
+  cursor: pointer;
+}
+
+@media (min-width: 1100px) {
+  .emptyButton {
+    width: 20%;
+  }
+  .selectedButton {
+    width: 20%;
+  }
+}
+
+@media (max-width: 530px) {
+  .emptyButton {
+    width: 120px;
+  }
+  .selectedButton {
+    width: 120px;
+  }
 }

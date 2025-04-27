@@ -31,8 +31,7 @@ export default function Admin() {
   return (
     <div className="container mx-auto p-6 bg-gray-50 min-h-screen">
       <div className="flex min-h-[15vh]">
-        <AdminHeader
-        />
+        <AdminHeader />
       </div>
       <div className="flex min-h-[75vh]">
         {events.map((event: EventOutput) => (
@@ -47,4 +46,3 @@ export default function Admin() {
     </div>
   );
 }
-
