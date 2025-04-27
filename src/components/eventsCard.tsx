@@ -46,5 +46,6 @@ export default function EventsCard({ idHome,idAway,date, time, location, categor
         </a>
       </div>
     </div>
+    </div>
   );
 }
