@@ -7,8 +7,8 @@ import AdminHeader from "@/components/adminHeader";
 import Footer from "@/components/footer";
 
 
-const Map = dynamic(
-    () => import('../components/Map'),
+const MapView = dynamic(
+    () => import('../components/MapView'),
     { 
       ssr: false,
       loading: () => <p>Loading map...</p>
@@ -24,7 +24,7 @@ export default function Home() {
       </div>
       <div className="flex h-[75vh]">¸
       <MapErrorBoundary>
-        <Map />
+        <MapView />
       </MapErrorBoundary>
       </div>
       <div className="flex h-[10vh]">

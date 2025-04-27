@@ -1,3 +1,26 @@
 .sportPageDiv {
+  font-size: 24px;
   color: #1f1f2e;
+}
+
+.karlo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.karlovlah {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  img {
+    border-radius: 25%;
+    width: 24px;
+  }
+}
+
+.vlah {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
 }
