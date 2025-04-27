@@ -32,7 +32,8 @@ export default function EventsCard({ idHome,idAway,date, time, location, categor
           {date}, {time}, {location}
         </>
       </div>
-      <div className="team">
+      <div className="flex items-center justify-around">
+        <div className="team">
         <img className="photo" src={homeTeamImage} />
         <a className="link" onClick={() => handleTeamClick('home')}>
           <div className="name">{homeTeam}</div>
