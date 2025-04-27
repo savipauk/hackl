@@ -1,45 +1,23 @@
 import { EventOutput, SportOutput } from "@/lib/types";
 import "@/styles/eventOnDate.css";
-import { useEffect, useState } from "react";
 
 interface EventOnDateProps {
   event: EventOutput;
+  name?: string;
+  address?: string;
 }
 
-export default function EventOnDate({ event }: EventOnDateProps) {
-  const [sportName, setSportTeam] = useState("");
-
-  useEffect(() => {
-    async function fetchSport() {
-      try {
-        const response = await fetch("/api/sports/byhash", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ sportId: event.sport }),
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data: SportOutput = await response.json();
-        setSportTeam(data.sportName);
-      } catch {
-        setSportTeam("Nema tima");
-      }
-    }
-
-    fetchSport();
-  }, []);
-
+export default function EventOnDate({
+  event,
+  name,
+  address,
+}: EventOnDateProps) {
   return (
     <div className="eventDateCard p-[10px]">
       <div className="flex ">
         <p className="eventInfo">{event.matchTime}</p>
         <p className="eventInfo">
-          {sportName},{event.location}
+          {name},{address}
         </p>
       </div>
       <div className="flex flex-col px-[20px]">

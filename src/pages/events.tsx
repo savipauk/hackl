@@ -6,7 +6,12 @@ import "@/styles/events.css";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { Value } from "react-calendar/src/shared/types.js";
-import { EventOutput, SportOutput } from "@/lib/types";
+import {
+  EventOutput,
+  LocationByHash,
+  LocationsOutput,
+  SportOutput,
+} from "@/lib/types";
 import EventOnDate from "@/components/eventOnDate";
 
 export default function Events() {
@@ -14,7 +19,12 @@ export default function Events() {
   const [upcomingDates, setUpcomingDates] = useState(true);
   const [date, setDate] = useState<Value>(new Date());
   const [events, setEvents] = useState<EventOutput[]>();
-  const [sportNames, setSportNames] = useState<string[]>("");
+  const [sportNames, setSportNames] = useState<Map<string, string>>(
+    () => new Map()
+  );
+  const [locationMap, setLocationMap] = useState<Map<string, LocationByHash>>(
+    () => new Map()
+  );
 
   useEffect(() => {
     async function fetchEvents() {
@@ -27,7 +37,15 @@ export default function Events() {
 
         const data: EventOutput[] = await response.json();
         setEvents(data);
-        events?.map((event) => {});
+        data?.map((event) => {
+          if (sportNames.has(event.sport)) return;
+          fetchSport(event.sport).catch((error) => {
+            console.error("Error fetching sport:", error);
+          });
+          if (!locationMap.has(event.location)) {
+            fetchLocation(event.location);
+          }
+        });
       } catch {
         const data: EventOutput[] = [];
         setEvents(data);
@@ -47,11 +65,63 @@ export default function Events() {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const data: SportOutput = await response.json();
-        setSportTeam(data.sportName);
+        const data: SportOutput[] = await response.json();
+        setSportNames((old) => {
+          const next = new Map(old);
+          next.set(id, data[0].sportName);
+          return next;
+        });
       } catch {
-        setSportTeam("Nema tima");
+        setSportNames(new Map());
       }
+    }
+    async function fetchLocation(locationId: string) {
+      try {
+        const response = await fetch("/api/events/locationbyhash", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            locationId: locationId,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data: LocationByHash = await response.json();
+
+        setLocationMap((old) => {
+          const next = new Map(old);
+          next.set(locationId, data);
+          return next;
+        });
+      } catch (err) {}
+    }
+    async function fetchTeam(teamId: string) {
+      try {
+        const response = await fetch("/api/teams/teaminfo", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            locationId: teamId,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data: LocationByHash = await response.json();
+
+        setLocationMap((old) => {
+          const next = new Map(old);
+          next.set(locationId, data);
+          return next;
+        });
+      } catch (err) {}
     }
 
     fetchEvents();
@@ -114,13 +184,19 @@ export default function Events() {
             : "Invalid date"}
         </h1>
         <div>
-          {events?.map((event) => {
+          {events?.map((event, index) => {
             if (
               event.matchDate &&
               date instanceof Date &&
               new Date(event.matchDate).toDateString() === date.toDateString()
             ) {
-              return <EventOnDate event={event} />;
+              return (
+                <EventOnDate
+                  event={event}
+                  name={sportNames.get(event.sport)}
+                  address={locationMap.get(event.location)?.venueName}
+                />
+              );
             }
           })}
         </div>
