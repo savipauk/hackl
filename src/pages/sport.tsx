@@ -201,19 +201,14 @@ export default function SportPage() {
         />
       </div>
 
-      <div className="flex min-h-[87dvh]">
-        <div className="cover">
-          <h1 className="events flex h-[100%] justify-center items-end">
-            HOKEJ NA TRAVI
-          </h1>
-        </div>
-      </div>
-
       <div className="flex min-h-[77vh]">
         <Sidebar isOpen={isSidebarOpen} />
         <div className="content-area">
           {sports.map((sport) => (
             <div>
+              <div className="sportPageDiv flex justify-center">
+                {sport.sportName}
+              </div>
               <div className="sportPageDiv flex justify-center">
                 {category}
               </div>
@@ -252,12 +247,15 @@ export default function SportPage() {
                 {activeTab === "events" && (
                   <>
                     {events.map((event) => (
-                      <EventsCard date={event.matchDate} time={event.matchTime} location={locationMap.get(event.location)?.venueName} homeTeam={teamMap.get(event.homeTeam)?.teamName} awayTeam={teamMap.get(event.awayTeam)?.teamName} homeTeamImage={teamMap.get(event.homeTeam)?.teamLogo} awayTeamImage={teamMap.get(event.awayTeam)?.teamLogo} />
+                      <EventsCard idHome={event.homeTeam} idAway={event.awayTeam} date={event.matchDate} time={event.matchTime} location={locationMap.get(event.location)?.venueName} homeTeam={teamMap.get(event.homeTeam)?.teamName} awayTeam={teamMap.get(event.awayTeam)?.teamName} homeTeamImage={teamMap.get(event.homeTeam)?.teamLogo} awayTeamImage={teamMap.get(event.awayTeam)?.teamLogo}/>
                     ))}
                   </>
                 )}
-                {activeTab === "events" && (
+                {activeTab === "results" && (
                   <>
+                  {events.map((event) => (
+                      <EventsCard idHome={event.homeTeam} idAway={event.awayTeam} date={event.matchDate} time={event.matchTime} location={locationMap.get(event.location)?.venueName} homeTeam={teamMap.get(event.homeTeam)?.teamName} awayTeam={teamMap.get(event.awayTeam)?.teamName} homeTeamImage={teamMap.get(event.homeTeam)?.teamLogo} awayTeamImage={teamMap.get(event.awayTeam)?.teamLogo} homeResult={event.homeTeamScore} awayResult={event.awayTeamScore} />
+                    ))}
                   </>
                 )}
                 {activeTab === "table" && (
